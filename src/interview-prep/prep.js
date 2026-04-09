@@ -1,4 +1,4 @@
-import { getJobs, saveJobs, getApiKey, getLang, getResume } from '../utils/storage.js';
+import { getJobs, saveJobs, getApiKey, getLang, setLang, getResume } from '../utils/storage.js';
 import { analyzeJD, predictInterviewStructure, generateInterviewQuestions, analyzeResumeVsJD, generateOAPrep } from '../utils/ai.js';
 
 // ── Init ──────────────────────────────────────────────
@@ -27,6 +27,22 @@ async function init() {
 
   // Back button
   document.getElementById('back-btn').addEventListener('click', () => window.close());
+
+  // Language toggle — switch lang, clear cache, regenerate
+  const currentLangVal = await getLang();
+  const langBtn = document.getElementById('lang-btn');
+  langBtn.textContent = currentLangVal === 'zh' ? 'EN' : '中';
+  langBtn.title = currentLangVal === 'zh' ? 'Switch to English' : '切换为中文';
+  langBtn.addEventListener('click', async () => {
+    const lang = await getLang();
+    const newLang = lang === 'zh' ? 'en' : 'zh';
+    await setLang(newLang);
+    // Clear cached prep data so it regenerates in new language
+    const allJobs = await getJobs();
+    const t = allJobs.find(j => j.id === jobId);
+    if (t) { delete t.prepData; await saveJobs(allJobs); }
+    location.reload();
+  });
 
   // Regenerate button
   document.getElementById('regen-btn').addEventListener('click', async () => {
