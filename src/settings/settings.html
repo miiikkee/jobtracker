@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>JobTracker · Settings</title>
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+  <div class="container">
+    <div class="logo">Job<span>Tracker</span> · 设置</div>
+
+    <div class="section">
+      <div class="section-title">Claude API</div>
+      <label for="api-key">API Key</label>
+      <input type="password" id="api-key" placeholder="sk-ant-..." autocomplete="off"/>
+      <div class="hint">
+        前往 <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> 获取 Key。
+        数据仅存储在本地浏览器，不上传任何服务器。
+      </div>
+      <button class="btn" id="save-btn">保存</button>
+      <div class="status" id="status"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Gmail 集成</div>
+      <label for="google-client-id">Google OAuth Client ID</label>
+      <input type="text" id="google-client-id" placeholder="xxxx.apps.googleusercontent.com" autocomplete="off"/>
+      <div class="hint">
+        在 <a href="https://console.cloud.google.com" target="_blank">Google Cloud Console</a> 创建 OAuth 凭据：<br>
+        1. 新建项目 → 启用 <strong>Gmail API</strong><br>
+        2. 创建 OAuth 2.0 客户端（类型选 <strong>Web 应用</strong>）<br>
+        3. 授权重定向 URI 填写（点击复制）：<br>
+        <code id="redirect-uri" title="点击复制">加载中...</code>
+        4. 复制 Client ID 填到上方
+      </div>
+      <button class="btn" id="save-google-btn">保存</button>
+      <div class="status" id="google-status"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Resume（简历）</div>
+
+      <!-- File upload -->
+      <div class="drop-zone" id="resume-drop">
+        <div class="drop-zone-icon">📄</div>
+        <div class="drop-zone-label">
+          拖放文件到这里，或 <span id="browse-label">点击选择</span>
+        </div>
+        <div class="drop-zone-types">支持 PDF · Word (.docx) · 纯文本 (.txt)</div>
+        <input type="file" id="resume-file" accept=".pdf,.docx,.doc,.txt" style="display:none">
+      </div>
+      <div class="file-loading" id="file-loading">⟳ 正在解析文件...</div>
+
+      <label for="resume-text" style="margin-top:10px">或直接粘贴简历文本</label>
+      <textarea id="resume-text"
+        placeholder="Paste your resume here, or upload a file above..."
+        style="width:100%;height:160px;padding:9px 12px;background:#0f0f0f;border:1px solid #2a2a2a;border-radius:6px;color:#e8e6df;font-size:12px;font-family:monospace;outline:none;resize:vertical;line-height:1.5"
+      ></textarea>
+      <div class="hint">简历将存储在本地，用于 AI 面试准备中的个性化分析和 STAR 回答建议。</div>
+      <button class="btn" id="save-resume-btn">保存简历</button>
+      <div class="status" id="resume-status"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">关于</div>
+      <div style="font-size:12px;color:#555;line-height:1.8;">
+        JobTracker v3.0 · 开源项目<br>
+        数据全部存储在本地浏览器 · 如需删除数据请在扩展管理页移除插件
+      </div>
+    </div>
+  </div>
+  <!-- Optional: PDF and DOCX parsing libraries. Run setup-libs.sh to download. -->
+  <script src="../lib/pdf.min.js"></script>
+  <script src="../lib/mammoth.browser.min.js"></script>
+  <script type="module" src="settings.js"></script>
+</body>
+</html>

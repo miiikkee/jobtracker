@@ -1,0 +1,157 @@
+:root {
+  --bg-base:      #0e1117;
+  --bg-surface:   #141820;
+  --bg-hover:     #181e28;
+  --bg-active:    #0f1e18;
+  --border:       #1e2330;
+  --border-light: #252c3a;
+  --text-primary:   #eaf0e6;
+  --text-secondary: #5a6470;
+  --text-muted:     #333b48;
+  --accent:         #22c55e;
+  --accent-dim:     #166534;
+  --accent-bg:      #0a1f12;
+  --accent-border:  #14432a;
+  --status-applied:      #3b82f6;
+  --status-interviewing: #f59e0b;
+  --status-offer:        #22c55e;
+  --status-saved:        #2a3040;
+  --status-rejected:     #ef4444;
+  --tag-kw-bg:     #0a1f12; --tag-kw-color:  #22c55e; --tag-kw-border: #14432a;
+  --tag-sk-bg:     #0f1525; --tag-sk-color:  #60a5fa; --tag-sk-border: #1e2e50;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-base: #f8faf8; --bg-surface: #ffffff; --bg-hover: #f0f7f2;
+    --bg-active: #e8f5ee; --border: #e2e8e4; --border-light: #d4ddd6;
+    --text-primary: #111c16; --text-secondary: #6b7a70; --text-muted: #b0bdb4;
+    --accent: #16a34a; --accent-dim: #15803d; --accent-bg: #f0faf3; --accent-border: #bbf7d0;
+    --status-applied: #2563eb; --status-interviewing: #d97706;
+    --status-offer: #16a34a; --status-saved: #d1d5db; --status-rejected: #dc2626;
+    --tag-kw-bg: #f0faf3; --tag-kw-color: #15803d; --tag-kw-border: #bbf7d0;
+    --tag-sk-bg: #eff6ff; --tag-sk-color: #1d4ed8; --tag-sk-border: #bfdbfe;
+  }
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 380px; min-height: 500px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg-base); color: var(--text-primary); font-size: 13px;
+}
+
+/* Header */
+.header { padding: 11px 15px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.logo { font-size: 14px; font-weight: 700; letter-spacing: -0.3px; }
+.logo span { color: var(--accent); }
+.header-right { display: flex; gap: 5px; align-items: center; }
+.lang-toggle { font-size: 11px; padding: 3px 8px; background: transparent; border: 1px solid var(--border-light); border-radius: 5px; color: var(--text-secondary); cursor: pointer; transition: all 0.15s; font-weight: 500; }
+.lang-toggle:hover { color: var(--text-primary); border-color: var(--accent-border); }
+.icon-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 14px; padding: 3px 5px; border-radius: 4px; transition: color 0.15s; line-height: 1; }
+.icon-btn:hover { color: var(--text-secondary); }
+
+/* Stats */
+.stats { display: flex; border-bottom: 1px solid var(--border); }
+.stat { flex: 1; text-align: center; padding: 10px 0; border-right: 1px solid var(--border); cursor: pointer; transition: background 0.12s; }
+.stat:last-child { border-right: none; }
+.stat:hover { background: var(--bg-hover); }
+.stat.active { background: var(--bg-active); }
+.stat-num { font-size: 19px; font-weight: 600; color: var(--text-secondary); line-height: 1; }
+.stat.active .stat-num { color: var(--accent); }
+.stat-label { font-size: 10px; color: var(--text-muted); margin-top: 3px; }
+
+/* Sort bar */
+.sort-bar { display: flex; gap: 4px; padding: 8px 14px 0; }
+.sort-btn { font-size: 11px; padding: 3px 11px; background: transparent; border: 1px solid var(--border); border-radius: 5px; color: var(--text-muted); cursor: pointer; transition: all 0.15s; }
+.sort-btn:hover { color: var(--text-secondary); border-color: var(--border-light); }
+.sort-btn.active { background: var(--accent-bg); color: var(--accent); border-color: var(--accent-border); }
+
+/* Capture button */
+.capture-btn { margin: 10px 14px 6px; width: calc(100% - 28px); padding: 10px; background: var(--accent); color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: opacity 0.15s; }
+.capture-btn:hover { opacity: 0.88; }
+.capture-btn:disabled { background: var(--border); color: var(--text-muted); cursor: not-allowed; opacity: 1; }
+
+/* Job list */
+.job-list { overflow-y: auto; max-height: 330px; }
+.job-item { padding: 10px 14px 8px; border-bottom: 1px solid var(--border); transition: background 0.1s; }
+.job-item:hover { background: var(--bg-hover); }
+.job-company { font-size: 14px; font-weight: 600; color: var(--text-primary); line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: text; border-radius: 3px; }
+.job-title { font-size: 11px; color: var(--text-muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: text; border-radius: 3px; }
+.editable:hover { background: var(--bg-hover); outline: 1px dashed var(--border-light); }
+.editable[contenteditable="true"] { outline: 1px solid var(--accent); background: var(--bg-surface); white-space: normal; overflow: visible; padding: 1px 4px; }
+.job-meta { font-size: 11px; color: var(--text-muted); margin-top: 4px; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.status-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.status-saved { background: var(--status-saved); }
+.status-applied { background: var(--status-applied); }
+.status-interviewing { background: var(--status-interviewing); }
+.status-offer { background: var(--status-offer); }
+.status-rejected { background: var(--status-rejected); }
+.time-badge { font-size: 10px; color: var(--text-muted); background: var(--bg-surface); padding: 1px 6px; border-radius: 3px; border: 1px solid var(--border); }
+.overdue { color: #ef4444; border-color: #3a1010; }
+.timeline { font-size: 10px; color: var(--text-muted); margin: 5px 0; display: flex; gap: 5px; align-items: center; }
+.tl-dot { width: 5px; height: 5px; border-radius: 50%; }
+.tl-done { background: var(--accent); }
+.tl-pending { background: var(--border-light); }
+
+/* Summary */
+.collapse-btn { font-size: 11px; background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 0 0 4px; transition: color 0.15s; }
+.collapse-btn:hover { color: var(--text-secondary); }
+.summary-text { font-size: 12px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 6px; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 5px; }
+.tag-kw { font-size: 10px; padding: 2px 8px; background: var(--tag-kw-bg); color: var(--tag-kw-color); border-radius: 10px; border: 1px solid var(--tag-kw-border); }
+.tag-sk { font-size: 10px; padding: 2px 8px; background: var(--tag-sk-bg); color: var(--tag-sk-color); border-radius: 10px; border: 1px solid var(--tag-sk-border); }
+.highlight { font-size: 11px; color: var(--accent-dim); background: var(--accent-bg); border-left: 2px solid var(--accent-border); padding: 4px 8px; border-radius: 0 4px 4px 0; margin-bottom: 5px; line-height: 1.5; }
+@media (prefers-color-scheme: light) { .highlight { color: #15803d; } }
+.summary-company { font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; line-height: 1.5; }
+.summary-meta { display: flex; gap: 10px; font-size: 11px; color: var(--text-secondary); margin-bottom: 6px; flex-wrap: wrap; }
+.tag-section-label { font-size: 10px; color: var(--text-muted); margin: 4px 0 3px; letter-spacing: 0.3px; }
+.tag-req { font-size: 10px; padding: 2px 8px; background: var(--bg-surface); color: var(--text-secondary); border-radius: 10px; border: 1px solid var(--border-light); }
+.ai-btn { font-size: 11px; padding: 3px 10px; background: var(--accent-bg); color: var(--accent); border: 1px solid var(--accent-border); border-radius: 5px; cursor: pointer; margin-bottom: 5px; transition: opacity 0.15s; }
+.ai-btn:hover { opacity: 0.8; }
+.ai-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Actions */
+.job-actions { display: flex; gap: 8px; align-items: center; margin-top: 5px; flex-wrap: wrap; }
+.action-link { font-size: 11px; color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+.action-link:hover { color: var(--text-secondary); }
+.apply-link { font-size: 11px; color: var(--accent); text-decoration: none; padding: 2px 9px; border: 1px solid var(--accent-border); border-radius: 4px; background: var(--accent-bg); transition: opacity 0.15s; }
+.apply-link:hover { opacity: 0.8; }
+.prep-btn { font-size: 11px; padding: 2px 9px; background: none; color: #f59e0b; border: 1px solid #3d2e00; border-radius: 4px; cursor: pointer; transition: background 0.15s; }
+.prep-btn:hover { background: #1a1500; }
+.advance-btn { font-size: 11px; padding: 2px 9px; background: none; color: var(--accent); border: 1px solid var(--accent-border); border-radius: 4px; cursor: pointer; transition: background 0.15s; margin-left: auto; }
+.advance-btn:hover { background: var(--accent-bg); }
+.delete-btn { font-size: 11px; padding: 2px 6px; background: none; color: var(--text-muted); border: none; cursor: pointer; transition: color 0.15s; }
+.delete-btn:hover { color: #ef4444; }
+
+/* Empty state */
+.empty-state { text-align: center; padding: 40px 16px; color: var(--text-muted); }
+.empty-state p { margin-top: 10px; font-size: 12px; line-height: 1.8; color: var(--text-muted); }
+
+/* Gmail Modal */
+.gmail-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 100; align-items: center; justify-content: center; }
+.gmail-overlay.open { display: flex; }
+.gmail-box { background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: 10px; width: 344px; max-height: 420px; display: flex; flex-direction: column; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+.gmail-hd { padding: 11px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.gmail-hd-title { font-weight: 600; font-size: 13px; }
+.gmail-close { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 15px; line-height: 1; padding: 2px 4px; }
+.gmail-close:hover { color: var(--text-secondary); }
+.gmail-body { flex: 1; overflow-y: auto; padding: 12px 14px; min-height: 70px; }
+.gmail-ft { padding: 9px 14px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 8px; }
+.gmail-msg { font-size: 12px; color: var(--text-secondary); text-align: center; padding: 12px 0; }
+.gmail-spinner { display: inline-block; margin-right: 6px; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.update-row { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.update-row:last-child { border-bottom: none; }
+.update-check { margin-top: 2px; accent-color: var(--accent); cursor: pointer; }
+.update-info { flex: 1; cursor: pointer; }
+.update-company { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+.update-change { font-size: 11px; color: var(--accent); margin-top: 2px; }
+.update-email { font-size: 10px; color: var(--text-muted); margin-top: 2px; font-style: italic; }
+.update-reason { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+.gmail-apply-btn { display: none; padding: 5px 14px; background: var(--accent); color: #fff; border: none; border-radius: 6px; font-size: 12px; font-weight: 500; cursor: pointer; transition: opacity 0.15s; }
+.gmail-apply-btn:hover { opacity: 0.85; }
+.gmail-cancel-btn { padding: 5px 12px; background: none; color: var(--text-muted); border: 1px solid var(--border-light); border-radius: 6px; font-size: 12px; cursor: pointer; }
+.gmail-cancel-btn:hover { color: var(--text-secondary); }
+.gmail-section-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; padding-bottom: 4px; border-bottom: 1px solid var(--border); }

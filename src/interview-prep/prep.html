@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>Interview Prep · JobTracker</title>
+  <link rel="stylesheet" href="prep.css">
+</head>
+<body>
+  <div class="layout">
+
+    <!-- Sidebar nav -->
+    <nav class="sidebar">
+      <div class="sidebar-logo">Job<span>Tracker</span></div>
+
+      <div class="nav-item active" data-tab="overview">
+        <span class="nav-icon">📋</span> Overview
+      </div>
+      <div class="nav-item" data-tab="hr">
+        <span class="nav-icon">👤</span> HR Round
+      </div>
+      <div class="nav-item" data-tab="behavioral">
+        <span class="nav-icon">⭐</span> Behavioral
+      </div>
+      <div class="nav-item" data-tab="technical">
+        <span class="nav-icon">💻</span> Technical
+      </div>
+      <div class="nav-item" data-tab="oa">
+        <span class="nav-icon">📝</span> OA / Assessment
+      </div>
+
+      <div class="nav-divider"></div>
+
+      <div class="nav-item" data-tab="reverse">
+        <span class="nav-icon">❓</span> Questions to Ask
+      </div>
+    </nav>
+
+    <!-- Main area -->
+    <div class="main">
+      <div class="header">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div class="header-back" id="back-btn">← Back to JobTracker</div>
+          <button id="regen-btn" style="font-size:11px;padding:3px 10px;background:none;border:1px solid var(--border-lt);border-radius:5px;color:var(--text-2);cursor:pointer">↺ Regenerate</button>
+        </div>
+        <div class="header-company" id="header-company">Loading...</div>
+        <div class="header-meta" id="header-meta"></div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+      </div>
+
+      <!-- Loading state -->
+      <div id="loading-view" class="loading-wrap">
+        <div style="font-size:18px;margin-bottom:20px">🤖</div>
+        <div class="loading-step active" id="step-1">
+          <span class="step-icon spinner">⟳</span> Analyzing JD...
+        </div>
+        <div class="loading-step" id="step-2" style="opacity:.4">
+          <span class="step-icon">○</span> Predicting interview structure...
+        </div>
+        <div class="loading-step" id="step-3" style="opacity:.4">
+          <span class="step-icon">○</span> Generating question bank + OA prep (5 parallel calls)...
+        </div>
+        <div class="loading-step" id="step-4" style="opacity:.4">
+          <span class="step-icon">○</span> Analyzing resume fit...
+        </div>
+      </div>
+
+      <!-- Content (hidden until loaded) -->
+      <div id="content-view" style="display:none">
+        <div class="content" id="tab-overview">
+          <!-- Rendered by JS -->
+        </div>
+        <div class="content" id="tab-hr" style="display:none"></div>
+        <div class="content" id="tab-behavioral" style="display:none"></div>
+        <div class="content" id="tab-technical" style="display:none"></div>
+        <div class="content" id="tab-oa" style="display:none"></div>
+        <div class="content" id="tab-reverse" style="display:none"></div>
+      </div>
+    </div>
+
+  </div>
+  <script type="module" src="prep.js"></script>
+</body>
+</html>

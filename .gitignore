@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+.AppleDouble
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Downloaded libraries (run setup-libs.sh to get these)
+src/lib/pdf.min.js
+src/lib/pdf.worker.min.js
+src/lib/mammoth.browser.min.js
+
+# Node (if you add a build step later)
+node_modules/

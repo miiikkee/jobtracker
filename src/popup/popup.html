@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>JobTracker</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="header">
+    <div class="logo">Job<span>Tracker</span></div>
+    <div class="header-right">
+      <button class="lang-toggle" id="lang-btn">EN</button>
+      <button class="icon-btn" id="gmail-btn" title="Gmail 扫描">📧</button>
+      <button class="icon-btn" id="export-btn" title="导出 CSV">↓</button>
+      <button class="icon-btn" id="settings-btn" title="Settings">⚙</button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat active" data-filter="all">
+      <div class="stat-num" id="stat-total">0</div>
+      <div class="stat-label" data-i18n="all">全部</div>
+    </div>
+    <div class="stat" data-filter="applied">
+      <div class="stat-num" id="stat-applied">0</div>
+      <div class="stat-label" data-i18n="applied">已申请</div>
+    </div>
+    <div class="stat" data-filter="interviewing">
+      <div class="stat-num" id="stat-interviewing">0</div>
+      <div class="stat-label" data-i18n="interviewing">面试中</div>
+    </div>
+    <div class="stat" data-filter="offer">
+      <div class="stat-num" id="stat-offer">0</div>
+      <div class="stat-label" data-i18n="offer">Offer</div>
+    </div>
+  </div>
+
+  <div class="sort-bar">
+    <button class="sort-btn active" data-sort="saved">投递时间</button>
+    <button class="sort-btn" data-sort="company">公司名</button>
+    <button class="sort-btn" data-sort="status">状态分组</button>
+  </div>
+
+  <button class="capture-btn" id="capture-btn">＋ 保存当前职位</button>
+  <div class="job-list" id="job-list"></div>
+
+  <!-- Gmail Modal -->
+  <div class="gmail-overlay" id="gmail-overlay">
+    <div class="gmail-box">
+      <div class="gmail-hd">
+        <span class="gmail-hd-title">📧 Gmail 扫描</span>
+        <button class="gmail-close" id="gmail-close">✕</button>
+      </div>
+      <div class="gmail-body" id="gmail-modal-body">
+        <div class="gmail-msg">准备中...</div>
+      </div>
+      <div class="gmail-ft">
+        <button class="gmail-cancel-btn" id="gmail-modal-cancel">关闭</button>
+        <button class="gmail-apply-btn" id="gmail-modal-apply">应用选中更新</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

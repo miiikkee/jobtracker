@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "JobTracker",
+  "version": "3.0.0",
+  "description": "Track job applications, scan Gmail, and prepare for interviews with AI.",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "notifications",
+    "scripting",
+    "identity"
+  ],
+  "host_permissions": [
+    "https://api.anthropic.com/*",
+    "https://www.googleapis.com/*"
+  ],
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16":  "icons/icon16.png",
+      "48":  "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "options_page": "src/settings/settings.html",
+  "content_scripts": [
+    {
+      "matches": [
+        "*://www.linkedin.com/jobs/*",
+        "*://www.indeed.com/*",
+        "*://www.glassdoor.com/*",
+        "*://*.greenhouse.io/*",
+        "*://*.lever.co/*",
+        "*://*.workday.com/*",
+        "*://*.myworkdayjobs.com/*",
+        "*://www.efinancialcareers.com/*",
+        "*://*.efinancialcareers.com/*"
+      ],
+      "js": ["src/content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
