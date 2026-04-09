@@ -8,11 +8,13 @@
     "storage",
     "notifications",
     "scripting",
-    "identity"
+    "identity",
+    "alarms"
   ],
   "host_permissions": [
     "https://api.anthropic.com/*",
-    "https://www.googleapis.com/*"
+    "https://www.googleapis.com/*",
+    "https://api.notion.com/*"
   ],
   "action": {
     "default_popup": "src/popup/popup.html",

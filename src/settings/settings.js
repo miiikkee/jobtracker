@@ -171,6 +171,30 @@ async function extractDOCX(file) {
   return result.value;
 }
 
+// Notion
+const notionTokenInput = document.getElementById('notion-token');
+const notionDbInput    = document.getElementById('notion-db-id');
+const saveNotionBtn    = document.getElementById('save-notion-btn');
+const notionStatus     = document.getElementById('notion-status');
+
+chrome.storage.local.get(['notionToken','notionDbId'], r => {
+  if (r.notionToken) notionTokenInput.placeholder = '已保存（重新输入可覆盖）';
+  if (r.notionDbId)  notionDbInput.value = r.notionDbId;
+});
+
+saveNotionBtn.addEventListener('click', () => {
+  const token = notionTokenInput.value.trim();
+  const dbId  = notionDbInput.value.trim();
+  if (!token && !dbId) { showStatus(notionStatus, '请填写 Token 和 Database ID', false); return; }
+  const data = {};
+  if (token) data.notionToken = token;
+  if (dbId)  data.notionDbId  = dbId;
+  chrome.storage.local.set(data, () => {
+    showStatus(notionStatus, '✓ 已保存', true);
+    if (token) { notionTokenInput.value = ''; notionTokenInput.placeholder = '已保存（重新输入可覆盖）'; }
+  });
+});
+
 function showStatus(el, msg, ok) {
   el.textContent = msg;
   el.className = 'status ' + (ok ? 'ok' : 'err');

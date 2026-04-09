@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard · JobTracker</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <div class="page-header">
+    <div class="header-left">
+      <div class="back-btn" id="back-btn">← Back</div>
+      <div class="logo">Job<span>Tracker</span> · Dashboard</div>
+    </div>
+    <div class="header-right">
+      <span id="last-updated" class="last-updated"></span>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- Stats row -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-value" id="s-total">—</div>
+        <div class="stat-label">Total Saved</div>
+      </div>
+      <div class="stat-card accent">
+        <div class="stat-value" id="s-applied">—</div>
+        <div class="stat-label">Applied</div>
+      </div>
+      <div class="stat-card blue">
+        <div class="stat-value" id="s-interview-rate">—</div>
+        <div class="stat-label">Interview Rate</div>
+      </div>
+      <div class="stat-card amber">
+        <div class="stat-value" id="s-offer-rate">—</div>
+        <div class="stat-label">Offer Rate</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="s-avg-response">—</div>
+        <div class="stat-label">Avg. Response</div>
+      </div>
+    </div>
+
+    <!-- Application Trend -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Application Trend</div>
+        <div class="toggle-group" id="trend-toggle">
+          <button class="toggle-btn active" data-period="8w">8 Weeks</button>
+          <button class="toggle-btn" data-period="3m">3 Months</button>
+        </div>
+      </div>
+      <div class="chart-wrap" id="trend-chart">
+        <div class="chart-empty">No data yet</div>
+      </div>
+    </div>
+
+    <!-- Pipeline Funnel -->
+    <div class="section">
+      <div class="section-title">Pipeline Funnel</div>
+      <div id="funnel-wrap"></div>
+    </div>
+
+    <!-- Two columns: Follow-up + Activity -->
+    <div class="two-col">
+
+      <!-- Needs Follow-up -->
+      <div class="section">
+        <div class="section-title">Needs Follow-up <span class="badge" id="followup-badge"></span></div>
+        <div id="followup-list">
+          <div class="empty-tip">No overdue applications</div>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="section">
+        <div class="section-title">Recent Activity</div>
+        <div id="activity-list">
+          <div class="empty-tip">No recent activity</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Export -->
+    <div class="section">
+      <div class="section-title">Export & Sync</div>
+      <div class="export-grid">
+        <div class="export-card">
+          <div class="export-icon">📊</div>
+          <div>
+            <div class="export-name">CSV Export</div>
+            <div class="export-desc">Download all applications as a spreadsheet</div>
+          </div>
+          <button class="export-btn" id="csv-btn">Export</button>
+        </div>
+        <div class="export-card" id="notion-card">
+          <div class="export-icon">📝</div>
+          <div>
+            <div class="export-name">Notion Sync</div>
+            <div class="export-desc" id="notion-desc">Configure in Settings to enable</div>
+          </div>
+          <button class="export-btn" id="notion-btn" disabled>Sync</button>
+        </div>
+      </div>
+      <div class="export-status" id="export-status"></div>
+    </div>
+
+  </div>
+
+  <script type="module" src="dashboard.js"></script>
+</body>
+</html>

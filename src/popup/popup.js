@@ -224,11 +224,27 @@ async function handleAdvance(jobId, nextStatus) {
   const jobs = await getJobs();
   const job = jobs.find(j => j.id === jobId);
   if (!job) return;
+  const prevStatus = job.status;
   job.status = nextStatus;
   if (nextStatus === 'applied'      && !job.appliedAt)   job.appliedAt   = new Date().toISOString();
   if (nextStatus === 'interviewing' && !job.interviewAt) job.interviewAt = new Date().toISOString();
   await saveJobs(jobs);
+  scheduleFollowUp(job, prevStatus, nextStatus);
   renderStats(jobs); renderJobs(jobs);
+}
+
+// ── Follow-up reminders ───────────────────────────────
+
+function scheduleFollowUp(job, prevStatus, nextStatus) {
+  const alarmName = `followup-${job.id}`;
+  const REMINDER_DAYS = 7;
+  if (nextStatus === 'applied') {
+    // Schedule a reminder 7 days after applying
+    chrome.alarms.create(alarmName, { delayInMinutes: REMINDER_DAYS * 24 * 60 });
+  } else if (prevStatus === 'applied') {
+    // Got a response — cancel the reminder
+    chrome.alarms.clear(alarmName);
+  }
 }
 
 async function handleDelete(jobId) {
@@ -385,9 +401,11 @@ async function applyGmailUpdates() {
   for (const u of selectedUpdates) {
     const job = jobs.find(j => j.id === u.jobId);
     if (!job) continue;
+    const prev = job.status;
     job.status = u.newStatus;
     if (u.newStatus === 'applied'      && !job.appliedAt)   job.appliedAt   = new Date().toISOString();
     if (u.newStatus === 'interviewing' && !job.interviewAt) job.interviewAt = new Date().toISOString();
+    scheduleFollowUp(job, prev, u.newStatus);
   }
   for (const nj of selectedNewJobs) {
     const emailDate = nj.emailDate ? new Date(nj.emailDate) : new Date();
@@ -511,6 +529,9 @@ async function init() {
   });
 
   document.getElementById('capture-btn').addEventListener('click', handleCapture);
+  document.getElementById('dashboard-btn').addEventListener('click', () => {
+    chrome.tabs.create({ url: chrome.runtime.getURL('src/dashboard/dashboard.html') });
+  });
   document.getElementById('export-btn').addEventListener('click', async () => { const jobs = await getJobs(); if (jobs.length) exportCSV(jobs); });
   document.getElementById('settings-btn').addEventListener('click', () => chrome.runtime.openOptionsPage());
 

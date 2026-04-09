@@ -62,6 +62,23 @@
     </div>
 
     <div class="section">
+      <div class="section-title">Notion 集成</div>
+      <label for="notion-token">Notion Integration Token</label>
+      <input type="password" id="notion-token" placeholder="secret_..." autocomplete="off"/>
+      <label for="notion-db-id" style="margin-top:10px">Database ID</label>
+      <input type="text" id="notion-db-id" placeholder="32 位 Database ID" autocomplete="off"/>
+      <div class="hint">
+        1. 前往 <a href="https://www.notion.so/my-integrations" target="_blank">notion.so/my-integrations</a> 创建 Integration，复制 Token<br>
+        2. 在 Notion 中新建数据库，添加以下属性：<br>
+        &nbsp;&nbsp;<strong>Company</strong>（文本）· <strong>Role</strong>（文本）· <strong>Status</strong>（选择）· <strong>Applied</strong>（日期）· <strong>URL</strong>（链接）<br>
+        3. 点击数据库右上角 ··· → Connect to → 选择你的 Integration<br>
+        4. 从数据库 URL 中复制 32 位 ID（最后一段斜杠后、问号前的部分）
+      </div>
+      <button class="btn" id="save-notion-btn">保存</button>
+      <div class="status" id="notion-status"></div>
+    </div>
+
+    <div class="section">
       <div class="section-title">关于</div>
       <div style="font-size:12px;color:#555;line-height:1.8;">
         JobTracker v3.0 · 开源项目<br>
